@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="mt-4 w-50 ms-2">
+        <input type="text" class="form-control border-black" placeholder="Search someone" (input)="searchCharacter($event)"/>
+    </div>
+    <div class="card-group justify-content-center ms-4" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+        <div *ngFor="let char of characterList " class="col-md-4 mt-4" >
+            <div class="row">
+                <div class="card border-black" style="width: 18rem;">
+                    <img src="{{char.image}}" class="mt-2 border-black" alt="...">
+                    <div class="card-body">
+                        <span href="" class="btn btn-sm float-end" [ngClass]="{'btn-success': char.status.includes('Alive'), 
+                        'btn-danger': !char.status.includes('Alive')}">{{char.status}}</span>
+                        <h5 class="card-title">{{char.name}}</h5>
+                        <p class="card-text">Gender: {{char.gender}}</p>
+                        <hr>
+                        <button href="" class="btn btn-primary btn-sm float-end" routerLink="/details/:{{char.id}}">details</button>
+                        <p class="card-text ">Species: {{char.species}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
