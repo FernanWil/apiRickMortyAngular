@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, share } from 'rxjs';
-// import { characterModule } from '../module/characterModule';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,10 +14,8 @@ export class CharacterService {
 	getData(apiUrl: string = `${this.urlSingle}character/`): Observable<any> { 
 		return this.http.get<any>(apiUrl).pipe(share()); }
 
-	// loadingMoreCharacters(id: number): Observable<any>{
-	// 	console.log(id);
-	// 	return this.http.get<any>(`${this.url}/?page=${id}`)
-	// }
-
+	getDataSearch(id: number): Observable<any>{
+		return this.http.get<any>(`${this.urlSingle}character/?page=${id}`).pipe(share())
+	}
 	
 }

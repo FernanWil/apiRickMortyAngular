@@ -1,0 +1,19 @@
+<nav class="navbar navbar-light sticky-top"
+	[ngClass]="{'opacity-50': inputSearch.value.includes('') , 'opacity-100': inputSearch.click}" style="background-color: #008191;">
+	<div class="container-fluid">
+		<img src="https://1000logos.net/wp-content/uploads/2022/03/Rick-and-Morty.png" width="250" height="85" class="ms-4"/>
+		<!-- <a class="navbar-brand bg-light">Navbar</a> -->
+		<!-- <div class="d-flex" [ngClass]="{''}"> -->
+			<!-- <a class="btn" #iconSearch> -->
+				<!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+			<!-- </a> -->
+			<input class="form-control me-4 w-25" #inputSearch placeholder="Search" aria-label="Search"
+				(input)="getNameCharacterSearch($event)">
+		<!-- </div> -->
+	</div>
+</nav>
+
+
+<!-- <div class="mt-4 w-50 ms-2">
+    <input type="text" class="form-control border-black" placeholder="Search someone" (input)="searchCharacter($event)"/>
+</div> -->
