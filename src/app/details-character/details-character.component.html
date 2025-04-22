@@ -1,1 +1,20 @@
-<div>HOLA</div>
+<app-navbar />
+<div class="container">
+    <div class="row justify-content-center align-items-center w-50">
+        <div *ngFor="let char of listCharacterById">
+            <div class="card border-black  mt-5">
+                <div class=" d-flex">
+                    <img src="{{char.image}}" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{char.name}}</h5>
+                        <p class="card-text">Gender: {{char.gender}}</p>
+                        <p class="card-text ">Species: {{char.species}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- [ngClass]="{'btn-success': char.status.includes('Alive'), 
+        'btn-danger': !char.status.includes('Alive')}" -->
