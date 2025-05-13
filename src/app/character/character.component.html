@@ -1,13 +1,14 @@
 <app-navbar (nameCharacterSearch)="searchCharacter($event)" />
 <div class="container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="200" [infiniteScrollDisabled]="infinityScrollDisabled" (scrolled)="onScroll()">
     <div class="row d-flex justify-content-center align-items-center" >
-        <div *ngFor="let char of characterList " class="col-md-3 mt-5 "> <!-- col-xl-3 col-sm-6 col-sx-12 -->
+        <div *ngFor="let char of characterList " class="col-md-3 mt-5 "> 
             <div class="card border-black">
                 <img src="{{char.image}}">
-                <div class="card-body">
+                <div class="card-body ">
+                    <app-toglefavorite [character]="char" class="float-end "/>
+                    <h5 class="card-title mt-1">{{char.name}}</h5>
                     <button class="btn btn-sm float-end" [ngClass]="{'btn-success': char.status.includes('Alive'), 
                             'btn-danger': !char.status.includes('Alive')}" disabled>{{char.status}}</button>
-                    <h5 class="card-title">{{char.name}}</h5>
                     <p class="card-text">Gender: {{char.gender}}</p>
                     <hr>
                     <button class="btn btn-primary btn-sm float-end" (click)="details(char.id)">details</button>
@@ -17,3 +18,6 @@
         </div>
     </div>
 </div>
+
+<!-- col-xl-3 col-sm-6 col-sx-12 -->
+

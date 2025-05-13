@@ -1,0 +1,18 @@
+<app-navbar/>
+<div class="container">
+    <div class="row d-flex justify-content-center align-items-center ">
+        <div *ngFor="let char of charactersFav$" class="col-md-6">
+            <div class="card border-black  mt-5">
+                <div class=" d-flex">
+                    <img src="{{char.image}}" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{char.name}}</h5>
+                        <p class="card-text">Gender: {{char.gender}}</p>
+                        <p class="card-text ">Species: {{char.species}}</p>
+                    </div>
+                    <app-toglefavorite [character]="char" class="mt-2 me-2"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

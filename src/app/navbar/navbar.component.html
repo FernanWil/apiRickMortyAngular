@@ -1,8 +1,25 @@
 <!-- [ngClass]="{'opacity-50': inputSearch.value.includes('') , 'opacity-100': inputSearch.click}"  -->
-<nav class="navbar navbar-light sticky-top" style="background-color: #008191;">
+<nav class="navbar navbar navbar-light navbar-expand-lg sticky-top">
+	<!-- style="background-color: #008191;" -->
 	<div class="container-fluid">
-		<img src="https://1000logos.net/wp-content/uploads/2022/03/Rick-and-Morty.png" routerLink='/' width="250" height="85" class="ms-4"/>
-		<input class="form-control me-4 w-25" #inputSearch placeholder="Search" aria-label="Search"
-				(input)="getNameCharacterSearch($event)">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a routerLink='/' class="navbar-brand">
+					<img src="https://1000logos.net/wp-content/uploads/2022/03/Rick-and-Morty.png" class="ms-5" width="150"/>
+				</a>
+			</li>
+			<li class="nav-item mt-4">
+				<a routerLink="/favorite" class="nav-link"> Favoritos </a>
+			</li>
+		</ul>
+
+
+		<form class="me-5" [formGroup]="form">
+			<input class="form-control mr-sm-2" formControlName="search" placeholder="search" aria-label="search" >
+			<!-- (input)="getNameCharacterSearch($event)" -->
+		</form>
 	</div>
 </nav>
+
+
+

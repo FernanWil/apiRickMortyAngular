@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
-import { characterModule } from '../module/characterModule';
+import { apiResponse, characterModule } from '../module/characterModule';
 import { CharacterService } from '../service/character-service.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { LocalstorageService } from '../service/localstorage.service';
+import { ToglefavoriteComponent } from "../toglefavorite/toglefavorite.component";
 
 @Component({
 	selector: 'app-character',
-	imports: [FormsModule, CommonModule, RouterModule, InfiniteScrollDirective, NavbarComponent],
+	imports: [FormsModule, CommonModule, RouterModule, InfiniteScrollDirective, NavbarComponent, ToglefavoriteComponent],
 	templateUrl: './character.component.html',
 	styleUrl: './character.component.css'
 })
@@ -22,35 +24,29 @@ export class CharacterComponent {
 	infinityScrollDisabled = false;
 	list: characterModule[] = [];
 
-	constructor(private characterSerice: CharacterService, private router: Router) { }
-	ngOnInit() {
-		this.getAllCharacters();
-	}
+	constructor(private characterSerice: CharacterService, private router: Router, private localStorageService: LocalstorageService) { }
+	ngOnInit() { this.getAllCharacters(); }
 
 	getAllCharacters() {
-		this.characterSerice.getData().subscribe((res: any) => {
-			// console.log(res.results[0].url);
-			this.characterList = res.results.map(({ id, name, status, image, species, gender }: characterModule) => {
-				return {
-					id: id,
-					name: name,
-					status: status,
-					image: image,
-					species: species,
-					gender: gender,
-				};
-			});
+		this.characterSerice.getData().subscribe((res: apiResponse) => {			
+			this.parseCharacterData(res.results);
 			this.characterListCopy = this.characterList;
-			this.nextUrl = res.info.next;			
-			// this.getAllCharacter();
-			// console.log(this.nextUrl);
-
+			this.nextUrl = res.info.next;						
 		})
+	}
+
+	private parseCharacterData(character: characterModule[]){
+		const characterFav = this.localStorageService.getcharactersFavorite();
+		const characterNewData = character.map((cha: characterModule) => {
+			const found = !!characterFav.find((item: characterModule) => item.id == cha.id);
+			return {...cha, isFavorite: found}
+		})
+		this.characterList = characterNewData		
 	}
 
 	searchCharacter(nameSearch: string) {
 		if (this.search.length != 0) this.infinityScrollDisabled = true 
-		this.search = nameSearch;
+		this.search = nameSearch;		
 		this.characterList = this.characterListCopy.filter(({ name }: characterModule) => {			
 			return name.toLowerCase().includes(this.search.toLowerCase())
 		})

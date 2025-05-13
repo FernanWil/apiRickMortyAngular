@@ -3,7 +3,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
 import { ActivatedRoute} from '@angular/router';
 import { CharacterService } from '../service/character-service.service';
 import { CommonModule } from '@angular/common';
-import { characterModule } from '../module/characterModule';
+import { apiResponse, characterModule } from '../module/characterModule';
 
 @Component({
   selector: 'app-details-character',
@@ -20,7 +20,7 @@ export class DetailsCharacterComponent {
     const id = this.route.snapshot.paramMap.get('id')
     this.getId = Number(id);
     if (this.getId) {
-      this.characterService.getCharacterById(this.getId).subscribe((elem) =>{
+      this.characterService.getCharacterById(this.getId).subscribe((elem: characterModule) =>{        
         if(elem){
           this.listCharacterById.push(elem)          
         }
